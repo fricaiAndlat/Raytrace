@@ -2,8 +2,8 @@ package chloroplast.color.fullImage;
 
 import java.awt.image.BufferedImage;
 
-import chloroplast.color.Filter;
 import chloroplast.color.LightColor;
+import chloroplast.color.filter.Filter;
 
 public class MemoryFullImage implements FullImage{
 	
@@ -61,7 +61,7 @@ public class MemoryFullImage implements FullImage{
 					g = data[G][x][y];
 				}
 				if(data[B][x][y] > b){
-					r = data[B][x][y];
+					b = data[B][x][y];
 				}
 				if(data[D][x][y] > widest){
 					widest = data[D][x][y];

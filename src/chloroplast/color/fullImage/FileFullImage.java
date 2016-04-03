@@ -5,8 +5,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
-import chloroplast.color.Filter;
 import chloroplast.color.LightColor;
+import chloroplast.color.filter.Filter;
 
 public class FileFullImage implements FullImage{
 	
@@ -33,7 +33,7 @@ public class FileFullImage implements FullImage{
 		raf = new RandomAccessFile(tempFile, "rw");
 		
 		tempFile.deleteOnExit();
-		raf.setLength(4 * 8 * width * height);
+		raf.setLength(4L * 8 * width * height);
 		
 		
 		
@@ -57,13 +57,13 @@ public class FileFullImage implements FullImage{
 	}
 
 	@Override
-	public void setColor(int x, int y, LightColor color) {
+	public void setColor(int x, int y, LightColor lightColor) {
 		try {
 			raf.seek(LENGTH_ENTRY * (width * y + x));
 		
-			raf.writeDouble(color.r);
-			raf.writeDouble(color.g);
-			raf.writeDouble(color.b);
+			raf.writeDouble(lightColor.r);
+			raf.writeDouble(lightColor.g);
+			raf.writeDouble(lightColor.b);
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -99,14 +99,78 @@ public class FileFullImage implements FullImage{
 
 	@Override
 	public Stats createStats() {
-		// TODO Auto-generated method stub
-		return null;
+		double nearest = -1;
+		double widest = 0;
+		double r = 0;
+		double g = 0;
+		double b = 0;
+		
+		try {
+			raf.seek(0);
+		
+			for(int i = 0; i < width*height; ++i){
+				double value = raf.readDouble();
+				
+				if(value > r){
+					r = value;
+				}
+				
+				value = raf.readDouble();
+				
+				if(value > g){
+					g = value;
+				}
+				
+				value = raf.readDouble();
+				
+				if(value > b){
+					b = value;
+				}
+				
+				value = raf.readDouble();
+				
+				if(value > widest){
+					widest = value;
+				}else if(nearest!=-1 && nearest>value){
+					nearest = value;
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return new FullImage.Stats(nearest, widest, new LightColor(r, g, b));
 	}
 
 	@Override
 	public BufferedImage finalRender(Filter filter) {
-		// TODO Auto-generated method stub
-		return null;
+		double r, g, b;
+		double depth;
+		int x, y;
+		
+		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+		
+		try{
+		
+			raf.seek(0);
+			
+			for(int i = 0; i < width*height; ++i){
+				r = raf.readDouble();
+				g = raf.readDouble();
+				b = raf.readDouble();
+				depth = raf.readDouble();
+				
+				x = i % width;
+				y = i / width;
+				
+				image.setRGB(x, y, filter.shade(x, y, r, g, b, depth));
+			}
+		
+		}catch(IOException e){
+			e.printStackTrace();
+		}
+		
+		return image;
 	}
 
 	@Override

@@ -2,8 +2,8 @@ package chloroplast.color.fullImage;
 
 import java.awt.image.BufferedImage;
 
-import chloroplast.color.Filter;
 import chloroplast.color.LightColor;
+import chloroplast.color.filter.Filter;
 
 public interface FullImage {
 	

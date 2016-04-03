@@ -52,6 +52,16 @@ public class Vec {
 		return new Vec(vec.x*newL/l, vec.y*newL/l, vec.z*newL/l);
 	}
 	
+	public Vec getDirection(Vec v){
+		double x = v.x - this.x;
+		double y = v.y - this.y;
+		double z = v.z - this.z;
+		
+		double l = Math.sqrt(x*x + y*y + z*z);
+		
+		return new Vec(x/l, y/l, z/l);
+	}
+	
 	
 
 }

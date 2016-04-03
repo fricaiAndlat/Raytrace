@@ -1,4 +1,4 @@
-package chloroplast.color;
+package chloroplast.color.filter;
 
 public interface Filter {
 
