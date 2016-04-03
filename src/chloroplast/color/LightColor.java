@@ -35,9 +35,9 @@ public class LightColor {
 	}
 	
 	public LightColor add(LightColor... args){
-		double sumR = 0;
-		double sumG = 0;
-		double sumB = 0;
+		double sumR = r;
+		double sumG = g;
+		double sumB = b;
 		
 		for(LightColor arg: args){
 			sumR += arg.r;

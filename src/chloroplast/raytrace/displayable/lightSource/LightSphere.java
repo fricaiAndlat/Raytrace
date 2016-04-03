@@ -29,12 +29,14 @@ public class LightSphere extends ColoredSphere implements LightSource{
 	public ArrayList<Vec> getPositions() {
 		ArrayList<Vec> positionList = new ArrayList<Vec>();
 		
-		for(int i = 0; i < quality; ++i){
-			positionList.add(this.center.add(
-					Math.sin(rand.nextDouble())*this.radius,
-					Math.sin(rand.nextDouble())*this.radius,
-					Math.sin(rand.nextDouble())*this.radius));
-		}
+//		for(int i = 0; i < quality; ++i){
+//			positionList.add(this.center.add(
+//					Math.sin(rand.nextDouble())*this.radius,
+//					Math.sin(rand.nextDouble())*this.radius,
+//					Math.sin(rand.nextDouble())*this.radius));
+//		}
+		
+		positionList.add(this.center);
 		
 		return positionList;
 	}

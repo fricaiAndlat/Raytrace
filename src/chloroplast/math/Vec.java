@@ -50,10 +50,10 @@ public class Vec {
 		return x*x + y*y + z*z;
 	}
 	
-	public Vec setLength(Vec vec, double newL){
-		double l = vec.length();
+	public Vec setLength(double newL){
+		double l = length();
 		
-		return new Vec(vec.x*newL/l, vec.y*newL/l, vec.z*newL/l);
+		return new Vec(x*newL/l, y*newL/l, z*newL/l);
 	}
 	
 	public Vec getDirection(Vec v){

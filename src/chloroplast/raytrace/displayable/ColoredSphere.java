@@ -34,13 +34,16 @@ public class ColoredSphere implements Displayable{
 		double intersection1 = a-b;
 		
 		if(ray.source != this && intersection1 > 0 && (ray.maxLength == -1 || intersection1 < ray.maxLength)){
-			return new IntersectionPoint(ray.pointAt(intersection1), intersection1, this, ray);
+			Vec inter = ray.pointAt(intersection1);
+			return new IntersectionPoint(inter, intersection1, this, ray, center.getDirection(inter));
 		}
 		
 		double intersection2 = a+b;
 		
+		
 		if(intersection2 > 0 && (ray.maxLength == -1 || intersection2 < ray.maxLength)){
-			return new IntersectionPoint(ray.pointAt(intersection2), intersection2, this, ray);
+			Vec inter = ray.pointAt(intersection2);
+			return new IntersectionPoint(inter, intersection2, this, ray, center.getDirection(inter));
 		}
 		
 		return null;

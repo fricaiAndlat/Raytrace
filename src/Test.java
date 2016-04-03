@@ -54,16 +54,18 @@ public class Test {
 				   new Vec(0, 1, 0),
 				   new LightColor(1, 1, 1), scene));
 		
-		scene.addDisplayable(new ColoredSphere(new Vec(-0.2, -1.4, -20), 1, new LightColor(0, 1, 0), scene));
-		scene.addDisplayable(new ColoredSphere(new Vec(0, 1, -20.1), 1.1, new LightColor(1, 0, 0), scene));
-		scene.addDisplayable(new ColoredSphere(new Vec(1, 0.5, -19), 0.5, new LightColor(1, 1, 0), scene));
-		scene.addDisplayable(new ColoredSphere(new Vec(4, 4, -20), 3.5, new LightColor(0, 0, 1), scene));
+		scene.addDisplayable(new ColoredSphere(new Vec(-0.2, -1.4, -20), 1, new LightColor(0.01, 1, 0.01), scene));
+		scene.addDisplayable(new ColoredSphere(new Vec(0, 1, -20.1), 1.1, new LightColor(1, 0.01, 0.01), scene));
+		scene.addDisplayable(new ColoredSphere(new Vec(1, 0.5, -19), 0.5, new LightColor(1, 1, 0.01), scene));
+		scene.addDisplayable(new ColoredSphere(new Vec(4, 4, -20), 3.5, new LightColor(0.01, 0.01, 1), scene));
 		
-		scene.addDisplayable(new LightSphere(new Vec(0, -3.9, -20), 0.1, new LightColor(4, 4, 4), 10, scene));
+		scene.addDisplayable(new LightSphere(new Vec(0, 3.9, -20), 0.5, new LightColor(1, 1, 1), 10, scene));
+		scene.addDisplayable(new LightSphere(new Vec(-3.8, 0, -19), 0.5, new LightColor(1, 0, 1), 10, scene));
 		
 		FullImage result = cam.renderScene(scene);
 		
-		ImageIO.write(result.finalRender(new CutOffFilter()), "png", new File("output.png"));
+		new File("out").mkdirs();
+		ImageIO.write(result.finalRender(new CutOffFilter()), "png", new File("out/output"+System.nanoTime()+".png"));
 		
 	}
 }

@@ -23,7 +23,7 @@ public class ColoredPlain implements Displayable{
 		
 		this.color = color;
 		
-		this.normal = sup1.crossProduct(sup2);
+		this.normal = sup1.crossProduct(sup2).setLength(1);
 		
 		this.scene = scene;
 	}
@@ -41,7 +41,7 @@ public class ColoredPlain implements Displayable{
 			return null;
 		}
 		
-		return new IntersectionPoint(ray.pointAt(a), a, this, ray);
+		return new IntersectionPoint(ray.pointAt(a), a, this, ray, normal);
 	}
 
 	@Override

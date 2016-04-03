@@ -11,6 +11,8 @@ import chloroplast.raytrace.displayable.lightSource.LightSource;
 
 public class Scene {
 	
+	public static double EPSILON = 1e-5;
+	
 	LightColor backgroundColor;
 	
 	ArrayList<Displayable> displayables = new ArrayList<Displayable>();
@@ -31,7 +33,7 @@ public class Scene {
 		
 		for(Displayable disp: displayables){
 			IntersectionPoint current = disp.intersect(ray);
-			if(current!= null && (nearest == null || current.length < nearest.length)){
+			if(current!= null && (nearest == null || (current.length >= EPSILON && current.length < nearest.length))){
 				nearest = current;
 			}
 		}
@@ -53,18 +55,21 @@ public class Scene {
 	}
 	
 	public LightColor getLightFromLightSources(IntersectionPoint intersection){
-		double r = 0;
-		double g = 0;
-		double b = 0;
+		double r = 0.1;
+		double g = 0.1;
+		double b = 0.1;
 		
 		for(Vec light: lights){
 			Ray shadowRay = new Ray(intersection.object, intersection.point, intersection.point.getDirection(light), -1);
 			IntersectionPoint intersect = this.intersect(shadowRay);
 			if(intersect != null){
-				LightColor color = shade(intersect);
-				r += color.r;
-				g += color.g;
-				b += color.b;
+				if(intersect.object instanceof LightSource){
+					LightColor color = shade(intersect);
+					double factor = intersection.normal.scalarProduct(shadowRay.direction);
+					r += color.r*factor;///intersect.length;
+					g += color.g*factor;///intersect.length;
+					b += color.b*factor;///intersect.length;
+				}
 			}
 		}
 		
