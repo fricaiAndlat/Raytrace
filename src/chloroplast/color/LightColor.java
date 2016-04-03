@@ -47,5 +47,9 @@ public class LightColor {
 		return new LightColor(sumR, sumG, sumB);
 		
 	}
+	
+	public LightColor multiply(LightColor color){
+		return new LightColor(r*color.r, g*color.g, b*color.b);
+	}
 
 }

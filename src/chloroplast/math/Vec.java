@@ -46,6 +46,10 @@ public class Vec {
 		return Math.sqrt(x*x + y*y + z*z);
 	}
 	
+	public double length2(){
+		return x*x + y*y + z*z;
+	}
+	
 	public Vec setLength(Vec vec, double newL){
 		double l = vec.length();
 		
@@ -60,6 +64,16 @@ public class Vec {
 		double l = Math.sqrt(x*x + y*y + z*z);
 		
 		return new Vec(x/l, y/l, z/l);
+	}
+	
+	public Vec crossProduct(Vec v){
+		return new Vec(y*v.z - z*v.y,
+					   z*v.x - x*v.z, 
+					   x*v.y - y*v.x);
+	}
+	
+	public double scalarProduct(Vec v){
+		return x*v.x + y*v.y + z*v.z;
 	}
 	
 	

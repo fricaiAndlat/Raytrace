@@ -15,5 +15,11 @@ public class Ray {
 		this.maxLength 	= maxLength;
 		
 	}
+	
+	public Vec pointAt(double scalar){
+		return new Vec(fix.x + scalar*direction.x, 
+					   fix.y + scalar*direction.y,
+					   fix.z + scalar*direction.z);
+	}
 
 }
