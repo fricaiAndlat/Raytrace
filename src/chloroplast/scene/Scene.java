@@ -13,7 +13,7 @@ public class Scene {
 	ArrayList<Displayable> displayables = new ArrayList<Displayable>();
 	Settings settings;
 	
-	public Scene(){
+	public Scene(){ 
 		backgroundColor = new LightColor(0.0352941176470588, 0, 0.4588235294117647);
 	}
 	
